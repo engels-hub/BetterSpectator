@@ -1,0 +1,36 @@
+name: BetterSpectator
+version: 1.0
+author: engels
+main: com.engels.betterspectator.BetterSpectator
+api-version: 1.8.9
+commands:
+  vanish:
+    description: makes you invisible to other players
+    usage: /<command>
+  unvanish:
+    description: makes you visible to other players
+    usage: /<command>
+  spec:
+    description: makes you spectate player
+    usage: /<command> [player]
+  exit:
+    description: ends your spectation of player
+    usage: /<command>
+  inv:
+    description: gives you player's inventory
+    usage: /<command> [player]
+  next:
+    description: makes you spectate next player (must already spectate one!)
+    usage: /<command>
+  prev:
+    description: makes you spectate prev player (must already spectate one!)
+    usage: /<command>
+  promote:
+    description: promotes given player
+    usage: /<command> [player]
+  demote:
+    description: demotes given player
+    usage: /<command> [player]
+  showall:
+      description: used for test purpouses
+      usage: /<command>
