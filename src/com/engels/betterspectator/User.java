@@ -2,6 +2,7 @@ package com.engels.betterspectator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class User {
 
@@ -13,12 +14,11 @@ public class User {
     private Integer runnableID;
     private int KillCount;
     private int DeathCount;
-    private double clicksPerSeconds;
-    private Integer clicksID;
+    private UUID lastDamager;
 
 
-    public User(int ID, String NAME, boolean CANSPECTATE, ArrayList<String> S, String SPECTARGET, Integer RID, int DC, int KC, int CPS, Integer CID){
-        this.setClicksID(CID);
+    public User(int ID, String NAME, boolean CANSPECTATE, ArrayList<String> S, String SPECTARGET, Integer RID, int DC, int KC, UUID lastDamager){
+        this.setLastDamager(lastDamager);
         this.setId(ID);
         this.setName(NAME);
         this.setCanSpectate(CANSPECTATE);
@@ -27,8 +27,6 @@ public class User {
         this.setRunnableID(RID);
         this.setDeathCount(DC);
         this.setKillCount(KC);
-        this.setClicksPerSeconds(CPS);
-
     }
 
 
@@ -36,8 +34,9 @@ public class User {
         return DeathCount;
     }
 
-    public void setDeathCount(int deathCount) {
-        DeathCount = deathCount;
+    public User setDeathCount(int deathCount) {
+        this.DeathCount = deathCount;
+        return this;
     }
 
     public int getId() {
@@ -93,8 +92,9 @@ public class User {
         return KillCount;
     }
 
-    public void setKillCount(int killCount) {
-        KillCount = killCount;
+    public User setKillCount(int killCount) {
+        this.KillCount = killCount;
+        return this;
     }
 
     public User incrementKillCount() {
@@ -107,19 +107,12 @@ public class User {
         return this;
     }
 
-    public double getClicksPerSeconds() {
-        return clicksPerSeconds;
+    public UUID getLastDamager() {
+        return lastDamager;
     }
 
-    public void setClicksPerSeconds(double clicksPerSeconds) {
-        this.clicksPerSeconds = clicksPerSeconds;
-    }
-
-    public Integer getClicksID() {
-        return clicksID;
-    }
-
-    public void setClicksID(Integer clicksID) {
-        this.clicksID = clicksID;
+    public User setLastDamager(UUID lastDamager) {
+        this.lastDamager = lastDamager;
+        return this;
     }
 }

@@ -1,4 +1,5 @@
 package com.engels.betterspectator.commands;
+import com.connorlinfoot.actionbarapi.ActionBarAPI;
 import com.engels.betterspectator.BetterSpectator;
 import com.engels.betterspectator.User;
 import org.bukkit.Bukkit;
@@ -39,6 +40,8 @@ public class inventoryCommand implements CommandExecutor {
                 player.getInventory().setItem(index,i);
                 index++;
             }
+
+
         }
 
         return true;

@@ -1,5 +1,6 @@
 package com.engels.betterspectator.commands;
 
+import com.connorlinfoot.actionbarapi.ActionBarAPI;
 import com.engels.betterspectator.BetterSpectator;
 import com.engels.betterspectator.TitleAPI;
 import com.engels.betterspectator.User;
@@ -100,15 +101,13 @@ public class spectateCommand implements CommandExecutor {
             modified.setSpectateTarget(target.getName());
 
 
-
+            //score
             Integer id = Bukkit.getScheduler().runTaskTimer(BetterSpectator.getInstance(), () -> {
                 int k = BetterSpectator.getUsers().get(target.getUniqueId()).getKillCount();
                 int d = BetterSpectator.getUsers().get(target.getUniqueId()).getDeathCount();
-
-                String footer="Spectating "+target.getName()+"\n ❤ "+String.valueOf(target.getHealth())+"\n K/D "+k+"/"+d+"\n ServerCPS 0";
-
-                TitleAPI.sendTabTitle(player, target.getName(), footer);
-            }, 0L, 2L).getTaskId();
+                //player.sendMessage("Spectating "+target.getName()+" ❤ "+String.valueOf(target.getHealth())+" K/D "+k+"/"+d+" ServerCPS "+ cps);
+                ActionBarAPI.sendActionBar(player,"Spectating "+target.getName()+" ❤ "+String.valueOf(target.getHealth())+" K/D "+k+"/"+d);
+            }, 0L, 20L).getTaskId();
             modified.setRunnableID(id);
             BetterSpectator.setUser(player.getUniqueId(), modified);
             player.performCommand("inv "+target.getName());
@@ -122,7 +121,7 @@ public class spectateCommand implements CommandExecutor {
             if(BetterSpectator.getUsers().get(player.getUniqueId()).getSpectateTarget() == null) return true;
             target = Bukkit.getPlayer(BetterSpectator.getUsers().get(player.getUniqueId()).getSpectateTarget());
             BetterSpectator.getUsers().get(player.getUniqueId()).setSpectateTarget(null);
-
+            Bukkit.getScheduler().cancelTask(BetterSpectator.getUsers().get(player.getUniqueId()).getRunnableID());
             for (User t : users.values()) {
                 if(Objects.equals(t.getName(), target.getName())){
                     for(int i = 0; i< t.getSpectated().size(); i++){
@@ -156,7 +155,20 @@ public class spectateCommand implements CommandExecutor {
                 player.sendMessage(user.isCanSpectate() +" "+ user.getName());
             }
         }
+        if((cmd.getName().equalsIgnoreCase("wipe"))) {
+            if(args[0] == null)
+                return true;
+            String TargetName=args[0];
+            Player target= getServer().getPlayer(TargetName);
 
+            if (getServer().getPlayer(TargetName) == null)
+                return true;
+            if(Objects.equals(player.getName(), TargetName))
+                return true;
+
+            BetterSpectator.setUser(target.getUniqueId(),BetterSpectator.getUsers().get(target.getUniqueId()).setKillCount(0).setDeathCount(0));
+
+        }
 
 
         return true;
@@ -179,7 +191,7 @@ public class spectateCommand implements CommandExecutor {
 
         }
         if(isNull(targetName)) return;
-        ArrayList<User> playerList= (ArrayList<User>) users.values();
+        ArrayList<User> playerList= new ArrayList<User> (players.values());
         int targetIndex=playerList.indexOf(users.get(Bukkit.getPlayer(targetName).getUniqueId()));
 
         if(targetIndex!=-1){

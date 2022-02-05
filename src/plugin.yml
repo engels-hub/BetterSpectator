@@ -34,3 +34,9 @@ commands:
   showall:
       description: used for test purpouses
       usage: /<command>
+  wipe:
+      description: wipes player`s kill count
+      usage: /<command> [player]
+depend:
+  - ActionBarAPI
+
