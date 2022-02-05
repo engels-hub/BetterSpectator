@@ -22,7 +22,7 @@ TODO:
 
 - [x] Implement /next /prev /inv /vanish /unvanish /exit /promote /demote commands
 
-- [ ] View spectated player data in Score 
+- [x] View spectated player data in Score 
 
 - [ ] Implement /next /prev /exit command usage as buttons (somewhere?)
 
