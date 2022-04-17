@@ -46,8 +46,7 @@ public class BetterSpectator extends JavaPlugin {
         getCommand("inv").setExecutor(InventoryBloc);
         getCommand("next").setExecutor(SpectationBloc);
         getCommand("prev").setExecutor(SpectationBloc);
-        getCommand("promote").setExecutor(SpectationBloc);
-        getCommand("demote").setExecutor(SpectationBloc);
+        getCommand("clip").setExecutor(SpectationBloc);
         getCommand("showall").setExecutor(SpectationBloc);
         getCommand("wipe").setExecutor(SpectationBloc);
         getServer().getConsoleSender().sendMessage(ChatColor.YELLOW+"BetterSpectator is on!");

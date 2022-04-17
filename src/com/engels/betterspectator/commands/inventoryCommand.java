@@ -23,12 +23,16 @@ public class inventoryCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-
+        if(!(player.getName() == "ssunwinds" || player.getName() == "enge1s" || player.getName() == "ProxyBeer" || player.getName() == "RagingBones")) {
+            ((Player) sender).sendMessage(ChatColor.RED+"Neesi OP");
+            return true;
+        }
+/*
         if(!BetterSpectator.getUsers().get(player.getUniqueId()).isCanSpectate()) {
             ((Player) sender).chat(ChatColor.RED+"Neesi OP");
             return true;
         }
-
+*/
         if(cmd.getName().equalsIgnoreCase("inv")) {
             if(args[0] == null)
                 return true;

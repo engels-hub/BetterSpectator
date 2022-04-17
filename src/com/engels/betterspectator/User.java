@@ -15,9 +15,10 @@ public class User {
     private int KillCount;
     private int DeathCount;
     private UUID lastDamager;
+    private Boolean clip;
 
-
-    public User(int ID, String NAME, boolean CANSPECTATE, ArrayList<String> S, String SPECTARGET, Integer RID, int DC, int KC, UUID lastDamager){
+    public User(int ID, String NAME, boolean CANSPECTATE, ArrayList<String> S, String SPECTARGET, Integer RID, int DC, int KC, UUID lastDamager, Boolean clip){
+        this.setClip(clip);
         this.setLastDamager(lastDamager);
         this.setId(ID);
         this.setName(NAME);
@@ -114,5 +115,14 @@ public class User {
     public User setLastDamager(UUID lastDamager) {
         this.lastDamager = lastDamager;
         return this;
+    }
+
+    public User setClip(Boolean clip) {
+        this.clip=clip;
+        return this;
+    }
+
+    public Boolean isClip() {
+        return clip;
     }
 }

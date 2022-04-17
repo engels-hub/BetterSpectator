@@ -29,15 +29,13 @@ public class events implements Listener {
     public static void onPlayerJoin(PlayerJoinEvent event){
         Player player= event.getPlayer();
         //TitleAPI.sendTitle(player, 0, 5, 0, "Yo", player.getName());
-        TitleAPI.sendTabTitle(player, "Yo", player.getName());
+        TitleAPI.sendTabTitle(player, "RV1.Ģ Bedwars turnīrs", player.getName());
 
 
         if(BetterSpectator.getUsers().containsKey(player.getUniqueId())) return;
-        User newUser= new User( getServer().getOnlinePlayers().size(), player.getName(), player.isOp(),new ArrayList<String>(), null, null, 0, 0,null);
+        User newUser= new User( getServer().getOnlinePlayers().size(), player.getName(), player.isOp(),new ArrayList<String>(), null, null, 0, 0,null, null);
         BetterSpectator.setUser(player.getUniqueId(),newUser);
-        if(player.isOp()){
-            player.setAllowFlight(true);
-        }
+
     }
 
     @EventHandler
@@ -80,6 +78,7 @@ public class events implements Listener {
             newLocation = geometryMagic(multiplier-1, playerLocation);
             if (p.getSpectated().size() == 0) return;
             for (String spectator : p.getSpectated()) {
+                if(!BetterSpectator.getUsers().get(Bukkit.getPlayer(spectator).getUniqueId()).isClip())break;
                 Bukkit.getPlayer(spectator).teleport(newLocation); //badabing badaboom
             }
         }

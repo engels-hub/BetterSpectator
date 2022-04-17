@@ -1,5 +1,5 @@
 name: BetterSpectator
-version: 1.0
+version: 2.0
 author: engels
 main: com.engels.betterspectator.BetterSpectator
 api-version: 1.8.9
@@ -10,8 +10,11 @@ commands:
   unvanish:
     description: makes you visible to other players
     usage: /<command>
-  spec:
+  clip:
     description: makes you spectate player
+    usage: /<command> [player]
+  spec:
+    description: makes you spectate player in freecam mode
     usage: /<command> [player]
   exit:
     description: ends your spectation of player
@@ -25,12 +28,6 @@ commands:
   prev:
     description: makes you spectate prev player (must already spectate one!)
     usage: /<command>
-  promote:
-    description: promotes given player
-    usage: /<command> [player]
-  demote:
-    description: demotes given player
-    usage: /<command> [player]
   showall:
       description: used for test purpouses
       usage: /<command>

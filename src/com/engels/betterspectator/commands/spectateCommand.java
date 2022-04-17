@@ -6,6 +6,7 @@ import com.engels.betterspectator.TitleAPI;
 import com.engels.betterspectator.User;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -30,8 +31,12 @@ public class spectateCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        boolean canSpectate=users.get(player.getUniqueId()).isCanSpectate();
-
+        if(!(player.getName() == "ssunwinds" || player.getName() == "enge1s" || player.getName() == "ProxyBeer" || player.getName() == "RagingBones")) {
+            ((Player) sender).sendMessage(ChatColor.RED+"Neesi OP");
+            return true;
+        }
+        //boolean canSpectate=users.get(player.getUniqueId()).isCanSpectate();
+/*
         if((cmd.getName().equalsIgnoreCase("promote")) && player.isOp()) {
 
             getServer().getConsoleSender().sendMessage(ChatColor.YELLOW+"BetterSpectator is on!");
@@ -52,11 +57,12 @@ public class spectateCommand implements CommandExecutor {
                 return true;
             BetterSpectator.setUser(player.getUniqueId(),BetterSpectator.getUsers().get(player.getUniqueId()).setCanSpectate(false));
         }
+
         if(!canSpectate) {
             ((Player) sender).chat(ChatColor.RED+"Neesi OP");
             return true;
         }
-
+*/
 
 
         if((cmd.getName().equalsIgnoreCase("vanish"))){
@@ -99,7 +105,53 @@ public class spectateCommand implements CommandExecutor {
             BetterSpectator.setUser(target.getUniqueId(), modified);
             modified=users.get(player.getUniqueId());
             modified.setSpectateTarget(target.getName());
+            modified.setClip(false);
+            BetterSpectator.setUser(player.getUniqueId(), modified);
 
+            //teleport player to target
+            Location targetLocation=target.getEyeLocation();
+            targetLocation.setY(targetLocation.getY()+2);
+            player.teleport(targetLocation);
+
+            //score
+            Integer id = Bukkit.getScheduler().runTaskTimer(BetterSpectator.getInstance(), () -> {
+                int k = BetterSpectator.getUsers().get(target.getUniqueId()).getKillCount();
+                int d = BetterSpectator.getUsers().get(target.getUniqueId()).getDeathCount();
+                //player.sendMessage("Spectating "+target.getName()+" ❤ "+String.valueOf(target.getHealth())+" K/D "+k+"/"+d+" ServerCPS "+ cps);
+                ActionBarAPI.sendActionBar(player,"Spectating "+target.getName()+" ❤ "+String.valueOf(target.getHealth())+" K/D "+k+"/"+d);
+            }, 0L, 20L).getTaskId();
+            modified.setRunnableID(id);
+            BetterSpectator.setUser(player.getUniqueId(), modified);
+            player.performCommand("inv "+target.getName());
+        }
+
+        if((cmd.getName().equalsIgnoreCase("clip"))) {
+            player.performCommand("exit ");
+            if(args[0] == null)
+                return true;
+            String TargetName=args[0];
+            Player target= getServer().getPlayer(TargetName);
+
+            if (getServer().getPlayer(TargetName) == null)
+                return true;
+            if(Objects.equals(player.getName(), TargetName))
+                return true;
+            player.performCommand("vanish");
+
+            player.setAllowFlight(true);
+            User modified=users.get(target.getUniqueId());
+            modified.getSpectated().add(player.getName());
+            BetterSpectator.setUser(target.getUniqueId(), modified);
+            modified=users.get(player.getUniqueId());
+            modified.setSpectateTarget(target.getName());
+            modified.setClip(false);
+            BetterSpectator.setUser(player.getUniqueId(), modified);
+
+
+            //teleport player to target
+            Location targetLocation=target.getEyeLocation();
+            targetLocation.setY(targetLocation.getY()+2);
+            player.teleport(targetLocation);
 
             //score
             Integer id = Bukkit.getScheduler().runTaskTimer(BetterSpectator.getInstance(), () -> {
@@ -117,7 +169,8 @@ public class spectateCommand implements CommandExecutor {
             //remove player from target spectated
 
             Player target;
-
+            player.performCommand("unvanish");
+            player.setAllowFlight(false);
             if(BetterSpectator.getUsers().get(player.getUniqueId()).getSpectateTarget() == null) return true;
             target = Bukkit.getPlayer(BetterSpectator.getUsers().get(player.getUniqueId()).getSpectateTarget());
             BetterSpectator.getUsers().get(player.getUniqueId()).setSpectateTarget(null);
@@ -180,7 +233,9 @@ public class spectateCommand implements CommandExecutor {
 
         //create lists for OP and players
         for (Map.Entry<UUID, User> userEntry : users.entrySet()) {
-            if(!userEntry.getValue().isCanSpectate()){
+            //!userEntry.getValue().isCanSpectate()
+
+            if(!(userEntry.getValue().getName() == "ssunwinds" || userEntry.getValue().getName() == "ProxyBeer" || userEntry.getValue().getName() == "RagingBones")){
                 players.put(userEntry.getKey(), userEntry.getValue());      //every player
             }else if(userEntry.getKey() == player.getUniqueId()){   //spectator
                 if(!isNull(BetterSpectator.getUsers().get(player.getUniqueId()).getRunnableID()))
