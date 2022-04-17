@@ -22,8 +22,8 @@ TODO:
 
 - [x] Implement /next /prev /inv /vanish /unvanish /exit /promote /demote commands
 
-- [ ] View spectated player data in Score 
+- [x] View spectated player data in Score 
 
-- [ ] Implement /next /prev /exit command usage as buttons (somewhere?)
+- [X] Implement /next /prev /exit command usage as buttons (third-party mod https://www.curseforge.com/minecraft/mc-mods/macrokey-keybinding)
 
 - [ ] Test with more players/moderators on a real server
