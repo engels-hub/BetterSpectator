@@ -192,7 +192,6 @@ public class events implements Listener {
         Player player = (Player) event.getEntity();
 
 
-        player.sendMessage("yo");
         //player.sendMessage(ChatColor.YELLOW + "CPS: " + ChatColor.WHITE + getClicks(player.getUniqueId()));
 
         UUID lastDamagerUUID = event.getDamager().getUniqueId();

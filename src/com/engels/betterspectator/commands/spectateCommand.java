@@ -31,7 +31,7 @@ public class spectateCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        if(!(player.getName() == "ssunwinds" || player.getName() == "enge1s" || player.getName() == "ProxyBeer" || player.getName() == "RagingBones")) {
+        if(!(player.getName().equalsIgnoreCase( "ssunwinds") || player.getName().equalsIgnoreCase( "enge1s") || player.getName().equalsIgnoreCase("ProxyBeer") || player.getName().equalsIgnoreCase( "RagingBones03") || player.getName().equalsIgnoreCase( "mangalis"))) {
             ((Player) sender).sendMessage(ChatColor.RED+"Neesi OP");
             return true;
         }
@@ -127,6 +127,7 @@ public class spectateCommand implements CommandExecutor {
 
         if((cmd.getName().equalsIgnoreCase("clip"))) {
             player.performCommand("exit ");
+
             if(args[0] == null)
                 return true;
             String TargetName=args[0];
@@ -144,7 +145,7 @@ public class spectateCommand implements CommandExecutor {
             BetterSpectator.setUser(target.getUniqueId(), modified);
             modified=users.get(player.getUniqueId());
             modified.setSpectateTarget(target.getName());
-            modified.setClip(false);
+            modified.setClip(true);
             BetterSpectator.setUser(player.getUniqueId(), modified);
 
 
@@ -170,7 +171,7 @@ public class spectateCommand implements CommandExecutor {
 
             Player target;
             player.performCommand("unvanish");
-            player.setAllowFlight(false);
+            //player.setAllowFlight(false);
             if(BetterSpectator.getUsers().get(player.getUniqueId()).getSpectateTarget() == null) return true;
             target = Bukkit.getPlayer(BetterSpectator.getUsers().get(player.getUniqueId()).getSpectateTarget());
             BetterSpectator.getUsers().get(player.getUniqueId()).setSpectateTarget(null);
@@ -235,7 +236,7 @@ public class spectateCommand implements CommandExecutor {
         for (Map.Entry<UUID, User> userEntry : users.entrySet()) {
             //!userEntry.getValue().isCanSpectate()
 
-            if(!(userEntry.getValue().getName() == "ssunwinds" || userEntry.getValue().getName() == "ProxyBeer" || userEntry.getValue().getName() == "RagingBones")){
+            if(!(player.getName().equalsIgnoreCase( "ssunwinds") || player.getName().equalsIgnoreCase( "enge1s") || player.getName().equalsIgnoreCase("ProxyBeer") || player.getName().equalsIgnoreCase( "RagingBones03") || player.getName().equalsIgnoreCase( "mangalis"))) {
                 players.put(userEntry.getKey(), userEntry.getValue());      //every player
             }else if(userEntry.getKey() == player.getUniqueId()){   //spectator
                 if(!isNull(BetterSpectator.getUsers().get(player.getUniqueId()).getRunnableID()))

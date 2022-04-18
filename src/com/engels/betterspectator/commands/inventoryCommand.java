@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class inventoryCommand implements CommandExecutor {
 
@@ -23,7 +24,7 @@ public class inventoryCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        if(!(player.getName() == "ssunwinds" || player.getName() == "enge1s" || player.getName() == "ProxyBeer" || player.getName() == "RagingBones")) {
+        if(!(player.getName().equalsIgnoreCase( "ssunwinds") || player.getName().equalsIgnoreCase( "enge1s") || player.getName().equalsIgnoreCase("ProxyBeer") || player.getName().equalsIgnoreCase( "RagingBones03") || player.getName().equalsIgnoreCase( "mangalis"))) {
             ((Player) sender).sendMessage(ChatColor.RED+"Neesi OP");
             return true;
         }
